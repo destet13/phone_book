@@ -7,10 +7,15 @@ import org.ubiwhere.phonebook.services.PhoneNumberServiceImpl;
 
 import java.util.Scanner;
 
+
+// you can run create 'create.db.sql' to create the database we are using
+// don't forget to also setup persistence.xml to ur userName and password in sql server
+// if you are using another dataBase resource make sure to the endpoint
 public class Main {
 
     public static void main(String[] args) throws NotFoundException {
 
+        // setups our persistence layer so it can insert/update/get data from our db
         EntryServiceImpl entryService = new EntryServiceImpl();
         PhoneNumberServiceImpl phoneNumberService = new PhoneNumberServiceImpl();
 
@@ -22,11 +27,12 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        boolean toEnd = true;
+        // keeps app running until it is asked to stop
+        boolean toEnd = false;
 
         Presentation.init(entryService.getAll());
 
-        while (toEnd) {
+        while (!toEnd) {
             String input = scanner.nextLine();
 
             ActionObject action = Helpers.getAction(input);
@@ -60,7 +66,7 @@ public class Main {
                     entryService.setEntryDao(entryDao);
                     Presentation.presentOne(entryService.getById(action.getId()));
                 case TERMINATE:
-                    toEnd = false;
+                    toEnd = true;
                     System.out.println("Closing Phone Book");
                     break;
             }

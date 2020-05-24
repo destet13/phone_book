@@ -9,11 +9,14 @@ import java.util.Scanner;
 
 public class Helpers {
 
+    // gets the action after the input from the user
     public static ActionObject getAction(String input) {
         List<String> actions = Arrays.asList(input.replaceAll("\\s+", "").split(","));
 
         String actionToDo = null;
 
+        // to see if the user didn't add and additional parameter
+        // this allows to see if the user want's to just see one entry or do something with that entry/phoneNumber
         if (actions.size() > 1){
             actionToDo = actions.get(1);
         } else {
@@ -44,6 +47,9 @@ public class Helpers {
         return new ActionObject(Integer.parseInt(actionToDo), Actions.GET);
     }
 
+    // since we dont have rest layer in this case we have to build our own object to insert in out db
+    // if we where working with rest, this would be done with a converter
+    // where we convert dtoToEntity and EntityToDto depending if we want to insert/update/remove or present de data
     public static Entry buildEntry(ActionObject action, Scanner scanner) {
 
         Entry entry = new Entry();

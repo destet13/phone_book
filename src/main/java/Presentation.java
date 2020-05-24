@@ -3,6 +3,7 @@ import org.ubiwhere.phonebook.persistence.model.Entry;
 
 import java.util.List;
 
+// this class has all the printing data to present in the terminal
 public class Presentation {
 
     public static void init(List<Entry> allEntries) {
@@ -28,16 +29,19 @@ public class Presentation {
     private static void loadMainMenuControls() {
         System.out.println("\n " +
                 "ENTER entry id followed by ',' and 'e' to edit or 'r' to remove\n" +
-                "ENTER 'a' to add new entry\n");
+                "ENTER 'a' to add new entry\n" +
+                "to exit ENTER 'end'");
     }
 
     private static void loadEntryControls() {
         System.out.println("\n" +
                 "ENTER phone number id followed by ',' and 'ep' to edit or 'rp' to remove\n" +
                 "ENTER entry id followed by ',' and 'ap' to add new phone number\n" +
-                "to return ENTER 'all'");
+                "to return ENTER 'all'\n" +
+                "to exit ENTER 'end'");
     }
 
+    // generic method to print all object in a list
     private static void presentAll(List<?> l) {
         for (Object o :
                 l) {
