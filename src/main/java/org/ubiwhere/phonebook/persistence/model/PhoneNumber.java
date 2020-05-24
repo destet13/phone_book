@@ -9,7 +9,7 @@ public class PhoneNumber {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String number;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Entry entry;
 
     public Integer getId() {
@@ -38,9 +38,7 @@ public class PhoneNumber {
 
     @Override
     public String toString() {
-        return "PhoneNumber{" +
-                "id=" + id +
-                ", number='" + number + '\'' +
-                '}';
+        return String.format("%5s %5s %15s %10s", id, "|", number, "|");
+
     }
 }

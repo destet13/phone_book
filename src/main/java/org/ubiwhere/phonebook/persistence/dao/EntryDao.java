@@ -3,6 +3,7 @@ package org.ubiwhere.phonebook.persistence.dao;
 import org.ubiwhere.phonebook.persistence.model.Entry;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
@@ -11,8 +12,8 @@ public class EntryDao implements Dao<Entry> {
     @PersistenceContext
     private EntityManager em;
 
-    public void setEm(EntityManager em) {
-        this.em = em;
+    public void setEm() {
+        this.em = Persistence.createEntityManagerFactory("phonebookPU").createEntityManager();;
     }
 
     @Override
@@ -20,11 +21,7 @@ public class EntryDao implements Dao<Entry> {
         List<Entry> entries = null;
 
         try {
-            em.getTransaction().begin();
-
-            entries = em.createQuery("from Entry e").getResultList();
-            // System.out.println("findAll result: " + entries);
-            em.getTransaction().commit();
+            entries = em.createQuery("from Entry").getResultList();
         } catch (Exception e) {
             System.err.println("Something went wrong - details: " + e.getMessage());
         } finally {
@@ -40,8 +37,6 @@ public class EntryDao implements Dao<Entry> {
         Entry entry = null;
 
         try {
-            em.getTransaction().begin();
-
             entry = em.find(Entry.class, id);
         } catch (Exception e) {
             System.err.println("Something went wrong - details: " + e.getMessage());
@@ -53,8 +48,9 @@ public class EntryDao implements Dao<Entry> {
 
     @Override
     public Entry saveOrUpdate(Entry modelObject) {
-
         try {
+            // remove when fixed problem with EM
+            setEm();
             em.getTransaction().begin();
 
             em.merge(modelObject);

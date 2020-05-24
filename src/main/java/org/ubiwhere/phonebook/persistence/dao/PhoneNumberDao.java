@@ -3,6 +3,7 @@ package org.ubiwhere.phonebook.persistence.dao;
 import org.ubiwhere.phonebook.persistence.model.PhoneNumber;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
@@ -11,8 +12,8 @@ public class PhoneNumberDao implements Dao<PhoneNumber> {
     @PersistenceContext
     private EntityManager em;
 
-    public void setEm(EntityManager em) {
-        this.em = em;
+    public void setEm() {
+        this.em = Persistence.createEntityManagerFactory("phonebookPU").createEntityManager();;
     }
 
     @Override

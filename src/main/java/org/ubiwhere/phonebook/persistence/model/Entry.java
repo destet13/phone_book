@@ -16,7 +16,8 @@ public class Entry {
     @OneToMany(
             mappedBy = "entry",
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.EAGER
     )
     private List<PhoneNumber> phoneNumbers = new ArrayList<>();
 
@@ -68,12 +69,6 @@ public class Entry {
 
     @Override
     public String toString() {
-        return "Entry{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumbers=" + phoneNumbers +
-                '}';
+        return String.format("%10s %10s %10s %5s %20s %5s %20s %5s %10s", id, "|", name, "|", address, "|", email, "|", phoneNumbers.size());
     }
 }
